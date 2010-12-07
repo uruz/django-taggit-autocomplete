@@ -8,9 +8,13 @@ from utils import edit_string_for_tags
 
 class TagAutocomplete(forms.TextInput):
 	input_type = 'text'
+	json_url = None
 	
 	def render(self, name, value, attrs=None):
-		list_view = reverse('taggit_autocomplete-list')
+		if self.json_url:
+			list_view = reverse(self.json_url)
+		else:
+			list_view = reverse('taggit_autocomplete-list')
 		if value is not None and not isinstance(value, basestring):
 			value = edit_string_for_tags([o.tag for o in value.select_related("tag")])
 		html = super(TagAutocomplete, self).render(name, value, attrs)
