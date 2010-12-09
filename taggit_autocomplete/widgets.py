@@ -12,7 +12,7 @@ class TagAutocomplete(forms.TextInput):
 	
 	def render(self, name, value, attrs=None):
 		if self.json_url:
-			list_view = reverse(self.json_url)
+			list_view = self.json_url
 		else:
 			list_view = reverse('taggit_autocomplete-list')
 		if value is not None and not isinstance(value, basestring):
